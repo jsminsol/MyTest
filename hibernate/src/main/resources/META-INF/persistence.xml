@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence_2_0.xsd"
+			version="2.0">
+	<persistence-unit name="com.sample">
+		<class>com.sample.Test</class>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect"/>
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.format_sql" value="true"/>
+			<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.driver.OracleDriver"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@192.168.56.101:1521:ORCL"/>
+			<property name="javax.persistence.jdbc.user" value="ism"/>
+			<property name="javax.persistence.jdbc.password" value="tigerscott"/>
+		</properties>
+	</persistence-unit>
+</persistence>

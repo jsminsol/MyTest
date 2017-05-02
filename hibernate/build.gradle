@@ -1,0 +1,45 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {
+		classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE'
+		classpath 'se.transmode.gradle:gradle-docker:1.2'
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'docker'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+jar {
+    baseName = 'hibernate-docker'
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://code.lds.org/nexus/content/groups/main-repo'}
+}
+
+dependencies {
+	compile 'org.springframework.boot:spring-boot-starter-web:1.5.2.RELEASE'
+	compile group: 'org.hibernate', name: 'hibernate-core', version: '4.3.10.Final'
+    compile 'com.oracle:ojdbc6:11.2.0.3'
+}
+
+task buildDocker(type: Docker, dependsOn: build) {
+	push = true
+	applicationName = jar.baseName
+	dockerfile = file 'src/main/docker/Dockerfile'
+	doFirst {
+		copy {
+			from jar
+			into stageDir
+		}
+	}
+}
